@@ -8,6 +8,10 @@ define yin = Character("春日影", color="#b39a0e")
 define hua = Character("泉镜花", color="#6274c4")
 define mizi = Character("四月一日弥子", color="#c657e4", image = "mizi")
 define ni = Character("你", color="#3c80a2")
+
+define zeyeju = Character("泽野雏菊", color="#c68331")
+define tichuanchun = Character("笹川春", color="#c63180")
+
 # 动作
 init python:
     import random
@@ -82,7 +86,7 @@ label willEnd:
             jump start
 label start:
     $ firstStoryScore = 0
-    jump firstStory
+    jump secondStory
     return
 
 label firstStory:
@@ -517,4 +521,268 @@ label firstSeven: # 结局
         """
         jump willEnd
 
+label onSecondStoryWillEnd:
+    menu:
+        "{color=#000}重新开始{/color}":
+            jump start
+label secondStory:
+    """
+    秋风渐起，一年一度的全国剑道大赛又将开始了。
 
+    为此你所在高中的剑道部的成员们正在热火朝天地进行特训。
+
+    正当大家纷纷议论部内的王牌选手——泽野雏菊学姐会有什么样的训练计划时，
+
+    她却指定你为她的陪练对象。
+
+    虽然你们私下交情不错，但这能成为她当众指名你的理由吗？
+
+    抱着这样的疑问，你与她进行了数次对练。终于，在一个日光和煦的下午......
+    """
+    jump secondStart
+label secondStart:
+    "剑道训练馆内，你和泽野学姐手握竹剑对峙着"
+    "经过一轮节奏明快的攻防，你再一次败下阵来。相互鞠躬后——"
+    menu:
+        "没问题，再来一次吧":
+            jump secondAlpha1
+        "学姐，还要训练哦，休息一下好不好啦":
+            jump secondAlpha2
+
+label secondAlpha1:
+    zeyeju "好的，那么拜托了"
+
+    "又一轮激烈的对攻。泽野学姐最终还是打败了你"
+    "但你也让她冒了一次冷汗，相互鞠躬后，学姐脱下头盔"
+
+    zeyeju "有点累了吧，要不要休息一下"
+    menu:
+        "再来一次，爷们要战斗！":
+            jump secondBeta1
+        "既然学姐这么说了，训练就暂停一下吧":
+            jump secondBeta2
+label secondAlpha2:
+    zeyeju "那么，今天就到此为止吧"
+    """
+    学姐放下装备，收拾好东西后便与你告别了
+
+    走在回家的路上时，你想起青梅竹马的邻家少女笹川春说过会来你家帮忙准备晚餐
+
+    果然，推开屋门的一刹那，饭菜的香味扑面而来
+    """
+
+    tichuanchun "你可算回来了！今天我做的饭菜怎么样？"
+    menu:
+        "看起来不错":
+            jump .choice1
+        "应该挺好吃的":
+            jump .choice1
+    label .choice1:
+        tichuanchun """
+        感觉你有些疲惫，是因为剑道训练吗？
+        
+        在谈论什么热血啊羁绊啊之类的东西前，我觉得你更应该先照顾好自己的身体啊
+        """
+        menu:
+            "有没有一种可能，其实我现在状态非常不错？":
+                jump secondGamma11
+            "春酱，你还是一如既往地体贴呢。一直以来真是谢谢你的照顾了":
+                jump secondGamma12
+
+label secondBeta1:
+    zeyeju "没想到你这么有干劲......好吧"
+    "这一次，你的身体和反应速度渐渐跟上了学姐"
+    "就在你以为要取得胜利之时，她的竹剑却先一步击中了你"
+    menu:
+        "就快达到了...那种境界......我就快领悟了！":
+            jump secondOmega
+        "......那今天就到此为止吧":
+            jump secondAlpha2
+label secondBeta2:
+    zeyeju "今天也辛苦你了~"
+    """
+    泽野学姐放下竹剑，轻盈地向前小跑三两步推开训练馆的落地窗
+    
+    然后坐在门外台阶上晃荡着双腿，解开马尾辫任由秀发在风中飘扬
+    
+    她似乎若有所思地望着远处，你凑近一看，发现她正注视着院子里的一丛雏菊。
+    """
+    zeyeju "对了，应该要好好犒劳一下如此努力的后辈呢"
+    menu:
+        "谢谢学姐！不过奶茶我只喝星芋啵啵的哦":
+            jump secondThgema
+        "学姐太客气了，这种小事不劳您费心":
+            jump secondAlpha2
+
+label secondGamma11:
+    tichuanchun "......我明白了"
+    """
+    之后的日子里，你照例担任陪练，直到全国大赛开始。最终泽野学姐拿下了冠军。
+
+    什么，你想问后来的故事怎么样了？
+
+    无事发生，不过是毫无高光的日常罢了。
+
+    没错，无 事 发 生 哦——
+    """
+    jump secondEnd2
+
+label secondGamma12:
+    tichuanchun "突、突然间说什么呢！快点吃饭啦......不过，你这样说我真的很开心~"
+    """
+    之后的日子里，你照例担任陪练，而春酱则仍会时不时“借用”你家的厨房
+
+    全国大赛开始之际，春主动提出要陪同你前去观赛，于是你们肩并肩坐在观众席上看完了泽野学姐的所有比赛
+
+    最终，学姐拿下了冠军。
+
+    赛后，你向学姐祝贺，她却看着你身边的春
+    """
+    zeyeju "你们俩关系真好呢，不会是情侣吧？"
+    """
+    春害羞地躲到你身后，你只能无奈地笑笑。
+
+    和学姐道别后，春拉了拉你的衣角。你扭过头，发现她正努力藏住嘴角的微笑
+    """
+    tichuanchun "那个......今晚，我再做些好吃的给你吧"
+    jump secondEnd3
+
+label secondTheta1:
+    tichuanchun "是嘛，你们都喜欢这样自说自话啊。别人不理解就显得自己追求的所谓理想更酷了吗？"
+    tichuanchun "但我就是不明白啊！"
+    "结果晚饭时间就在一片沉默之中度过了"
+
+    """
+    全国大赛如期而至，你前去观看了泽野学姐的比赛。她一路打败强敌，如愿斩获冠军。
+
+    赛后，你站在场馆外，远远地看见她张开双臂向你小跑过来。你伸出手顺势抱住了她。
+    """
+    zeyeju "唉唉，我可是好不容易才从媒体和观众之中脱身出来啊。大家可真是盛情难却"
+    "学姐握住了你的手"
+    zeyeju """
+    还记得我之前在训练场和你的约定吗？其实嘛......
+    
+    我是想说，呃，
+    
+    其实我一直......
+    
+    对你......
+    """
+    "你不言语，只是温柔地注视着她"
+    zeyeju "意思都这么明显了还要等我说完吗？"
+    "她忍不住笑出声来"
+    zeyeju ".....你这个坏蛋！"
+    jump secondEnd4
+label secondTheta2:
+    tichuanchun "知道就好啦，饿了吧？来来，快吃饭"
+    "少女连忙拉着你入座了"
+    """
+    全国大赛如期而至，你前去观看了泽野学姐的比赛。她一路打败强敌，如愿斩获冠军。
+
+    赛后，你站在场馆外，远远地看见她张开双臂向你小跑过来。你伸出手顺势抱住了她。
+    """
+    zeyeju "唉唉，我可是好不容易才从媒体和观众之中脱身出来啊。大家可真是盛情难却"
+    "学姐握住了你的手"
+    zeyeju """
+    还记得我之前在训练场和你的约定吗？其实嘛......
+    
+    我是想说，呃，
+    
+    其实我一直......
+    
+    对你......
+    """
+    "你不言语，只是温柔地注视着她"
+    zeyeju "意思都这么明显了还要等我说完吗？"
+    "她忍不住笑出声来"
+    zeyeju ".....你这个坏蛋！"
+    jump secondEnd5
+label secondThgema:
+    zeyeju "很遗憾，现在喝奶茶的话训练就前功尽弃了呢"
+    "学姐笑出声来，右手轻叩身边的空位"
+    zeyeju "所以我准备了别的惊喜。来来，坐在我旁边吧"
+    "你照做了。在你坐下的那一刻，她顺势扶住你的肩膀，在你反应过来之前轻巧地将你的头枕在了她的腿上。"
+    zeyeju "怎么样，偶尔这样这不错吧？不过我今天腿有点累了，没法给你躺真正的膝枕真是不好意思呢......"
+    "学姐的声音越来越小了。你抬起头，发现她似乎在努力维持一副漫不经心的表情。为了打破无言的尴尬，还是说点什么好了"
+    menu:
+        "学姐，你在看什么？":
+            jump .choice1
+    label .choice1:
+        zeyeju "......哦哦！我在看......那丛菊花"
+        zeyeju "你看，她在风中摇曳，说不定是在担心明天会不会更冷呢"
+        menu:
+            "但是，她会克服心中的恐惧去迎接寒风，无论结果如何":
+                jump .choice2
+
+    label .choice2:
+        zeyeju "也是呢"
+        "学姐低下头，目光深沉地看着你"
+        zeyeju "其实我还有些话想告诉你，但果然还是等到全国大赛后再说吧！"
+        zeyeju "我们来做个约定，届时还请务必亲眼见证......我的决意哦"
+        """
+        和学姐道别后，你想起青梅竹马的邻家少女笹川春说过会来你家帮忙准备晚餐
+        
+        于是加快了脚步。果然，推开屋门的一刹那，饭菜的香味扑面而来。
+        """
+        tichuanchun "呀，你怎么这么晚才回来？发生什么事了吗？"
+        menu:
+            "学姐今日似乎非常有兴致":
+                jump .choice3
+    label .choice3:
+        tichuanchun "是这样啊。唉，真是搞不明白你们这些人，明明比起训练，还是记得好好吃饭对身体更好嘛"
+        menu:
+            "没事，你也不必勉强自己去搞明白":
+                jump secondTheta1
+            "谢谢你一直作为朋友帮助这样任性的我":
+                jump secondTheta2
+
+
+label secondOmega:
+    """
+    为了求胜，这次你打算试试不一样的战术。
+    
+    你以街头搏斗般拼命的姿势狂舞挥打。
+    
+    学姐显然有点吓到了，你精准地抓住了那措手不及的一瞬将她击败。
+
+    你能感觉到，这些日子的训练让你产生了质变：
+    """
+    "泽野学姐，普通的剑道是有极限的......所以，我不做普通剑道部员啦！！！"
+
+    zeyeju "你在说什么？总之今天先解散吧。"
+
+    """
+    和她分别后，你并没有回家，而是拐进了一条通往废弃厂房的小道。
+
+    第二天，新闻栏目刊登了聚集在某厂房中的小混混被一名疑似高中生的青年尽数击倒的报道。
+
+    你的心中毫无波澜，因为你知道，这只是你成为影之实力者的第一步。
+    """
+    jump secondEnd1
+    
+label secondEnd1:
+    scene black with fade
+    "达成结局“独孤求败”，获得2个印章"
+    jump onSecondStoryWillEnd
+
+label secondEnd2:
+    scene black with fade
+    "达成结局“我就喜欢孤寡”，获得1个印章"
+    jump onSecondStoryWillEnd
+label secondEnd3:
+    scene black with fade
+    "达成结局“我就喜欢青梅”，获得3个印章"
+    jump onSecondStoryWillEnd
+
+label secondEnd4:
+    scene black with fade
+    "达成结局“微微酸涩的青春”，获得4个印章"
+    jump onSecondStoryWillEnd
+label secondEnd5:
+    scene black with fade
+    """
+    后来，每当你和雏菊并肩而坐，互相依偎的时候
+    你总是会想起那个枕在她腿上，远远望着那丛盛放的菊，任凭秋风轻拂的下午
+    """
+    "达成结局“满溢甜蜜的青春”，获得5个印章"
+    jump onSecondStoryWillEnd
