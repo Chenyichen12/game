@@ -1,7 +1,4 @@
-﻿# 游戏的脚本可置于此文件中。
-
-# 声明此游戏使用的角色。颜色参数可使角色姓名着色。
-
+﻿
 define nike = Character("千坂田妮可", color="#d25145", image = "nike")
 define jieyi = Character("春日结衣", color="#c5ae27", image = "jieyi")
 define yin = Character("春日影", color="#b39a0e")
@@ -74,7 +71,7 @@ init python:
         trans.zoom = 1.0
         trans.rotation = 0.0
         return 0
-# 游戏在此开始。
+
 
 define firstStoryScore = 0
 
@@ -626,7 +623,6 @@ label secondGamma11:
     没错，无 事 发 生 哦——
     """
     jump secondEnd2
-
 label secondGamma12:
     tichuanchun "突、突然间说什么呢！快点吃饭啦......不过，你这样说我真的很开心~"
     """
@@ -697,6 +693,7 @@ label secondTheta2:
     "她忍不住笑出声来"
     zeyeju ".....你这个坏蛋！"
     jump secondEnd5
+
 label secondThgema:
     zeyeju "很遗憾，现在喝奶茶的话训练就前功尽弃了呢"
     "学姐笑出声来，右手轻叩身边的空位"
@@ -736,7 +733,6 @@ label secondThgema:
             "谢谢你一直作为朋友帮助这样任性的我":
                 jump secondTheta2
 
-
 label secondOmega:
     """
     为了求胜，这次你打算试试不一样的战术。
@@ -759,12 +755,12 @@ label secondOmega:
     你的心中毫无波澜，因为你知道，这只是你成为影之实力者的第一步。
     """
     jump secondEnd1
-    
+
+# 结局们
 label secondEnd1:
     scene black with fade
     "达成结局“独孤求败”，获得2个印章"
     jump onSecondStoryWillEnd
-
 label secondEnd2:
     scene black with fade
     "达成结局“我就喜欢孤寡”，获得1个印章"
@@ -773,7 +769,6 @@ label secondEnd3:
     scene black with fade
     "达成结局“我就喜欢青梅”，获得3个印章"
     jump onSecondStoryWillEnd
-
 label secondEnd4:
     scene black with fade
     "达成结局“微微酸涩的青春”，获得4个印章"
@@ -786,3 +781,4 @@ label secondEnd5:
     """
     "达成结局“满溢甜蜜的青春”，获得5个印章"
     jump onSecondStoryWillEnd
+
