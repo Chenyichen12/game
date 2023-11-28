@@ -9,6 +9,12 @@ define ni = Character("你", color="#3c80a2")
 define zeyeju = Character("泽野雏菊", color="#c68331")
 define tichuanchun = Character("笹川春", color="#c63180")
 
+define buzhimingnvshi = Character("不知名女士", color="#000000")
+define weizhiren = Character("???" , color="#000000")
+define shafulin = Character("沙芙林" , color="#401dc0")
+define xiuji = Character("秀吉", color="#d97121")
+define kenan = Character("打了无效马赛克的小学生", color="#171134")
+define mowang = Character("魔王", color="#000000")
 # 动作
 init python:
     import random
@@ -74,7 +80,7 @@ init python:
 
 
 define firstStoryScore = 0
-
+define thirdStoryScore = 0
 label willEnd:
     scene black with fade
     "游戏结束，你获得[firstStoryScore]分"
@@ -83,7 +89,8 @@ label willEnd:
             jump start
 label start:
     $ firstStoryScore = 0
-    jump secondStory
+    $ thirdStoryScore = 0
+    jump thirdStory
     return
 
 label firstStory:
@@ -135,7 +142,7 @@ label firstStory:
         hide mizi
         jump .choiceA
     label .choiceA:
-        "一所历史悠久的（角川艺术学院）艺术学院需要在某次大型活动中以优异的表现拉赞助"
+        "一座历史悠久的艺术学院——角川艺术学院……需要在某次大型活动中以优异的表现拉赞助"
         "为此校长恳求经营专业的你出手拉起乐队"
         "看在小时候照顾你的份上，你勉为其难的答应了她，就这样开始了你的探索"
         "学院一直有组乐队的传统，但上一届的乐队《WHITE ALBUM》由于荒诞的白学原因解散了"
@@ -201,7 +208,7 @@ label firstTwo:
         nike "好哎，是大冒险！"
         
         "妮可兴致勃勃，但又一下子有些犹豫"
-        show nike normal:
+        show nike kunhuo:
             function wiggleFuncX
         "我以前没接触过乐队，我不知道我能不能做好"
         menu:
@@ -210,7 +217,7 @@ label firstTwo:
             "没有关系，我会陪着你一起彩彩修车的！":
                 jump .choice2B
     label .choice1B:
-        show nike normal:
+        show nike kunhuo:
             function wiggleFuncX
         nike "感觉不是很懂的样子"
         hide nike with dissolve
@@ -224,7 +231,7 @@ label firstTwo:
         hide nike with dissolve
         jump firstThree
     label .choice2B:
-        show nike normal:
+        show nike zhihui:
             function wiggleFuncX
         nike "我不明白我不明白我不明白，不要讲怪话！"
         hide nike with dissolve
@@ -241,7 +248,9 @@ label firstThree:
     jieyi "怎么，你也想像那个自以为是的人一样，上演“你怎么那么熟练啊”的戏码,然后又伤害其他人的梦想吗？"
     show jieyi normal:
         function wiggleFuncY
-    jieyi "{size=+10}{color=#f00}他们的罪恶，我甚至不屑于细数{/color}{/size}"
+    jieyi """{size=+10}{color=#f00}他们的罪恶，我甚至不屑于细数{/color}{/size}
+    \n此处谨慎选择
+    """
     menu:
         "我才不会让乐队里有不可能的三角，真爱的力量才是无穷的啊！":
             jump .choice1A
@@ -249,28 +258,31 @@ label firstThree:
             jump .choice1B
     label .choice1A:
         "她怔住了，旋即哈哈大笑"
-        show jieyi normal:
+        show jieyi daxiao:
             function wiggleFuncX
         jieyi "好久没有人让我发笑了"
         jieyi "能说服我的话，我就听你安排"
         menu:
-            "结衣小姐，你也不希望你妹妹得不到奖学金评优吧，我可以直接干预哦？":
-                jump .choice2A
             "结衣小姐，你也不想你妹妹为学费操劳吧，参加乐队的话能得到学校的补贴哦？":
                 jump .choice2B
+            "结衣小姐，你也不希望你妹妹得不到奖学金评优吧，我可以直接干预哦？":
+                jump .choice2A
     label .choice1B:
+        show jieyi lengxiao
         "她冷冷一笑"
-        show jieyi normal:
+        show jieyi lengxiao:
             function wiggleFuncX
         jieyi "算了吧，我还是没有兴趣"
         "拒绝加入，攻略失败"
-        jump firstFour
+        jump firstFive
     label .choice2A:
         show jieyi normal:
             function wiggleFuncX
         jieyi """
         确实有我威慑力
-
+        """
+        show jieyi lengxiao
+        jieyi"""
         但是，我拒绝！だが、断る，我可不想因为这点事约束妹妹的自由
         """
         """
@@ -278,7 +290,7 @@ label firstThree:
 
         角色攻略失败，你找了别的贝斯手
         """
-        jump firstFour
+        jump firstFive
     label .choice2B:
         show jieyi normal:
             function wiggleFuncY
@@ -301,7 +313,7 @@ label firstFour:
         function happyShake
     yin "然后我也想加入！不过我，我想问个事"
     yin "就是上,上届..”WHITE ALBUM“的队长和前辈们"
-    show yin normal:
+    show yin ku:
         function wiggleFuncX
     yin "为什么就那样不辞而别啊！"
     menu:
@@ -310,7 +322,7 @@ label firstFour:
         "也许是到各奔前程的时候，却又不想和影你说再见吧":
             jump .choice1B
     label .choice1A:
-        show yin normal:
+        show yin xiaozhengzhu:
             function wiggleFuncX
         yin "真的，就是这样吗？明明大家那么努力啊！怎么就…"
         "看着哭泣的少女，你不禁轻轻握住她的手"
@@ -320,14 +332,14 @@ label firstFour:
             "我能向你保证，绝不会再让新乐队重复旧乐队的乐章！":
                 jump .choice2B
     label .choice1B:
-        show yin normal:
+        show yin ku:
             function wiggleFuncX
         yin "你在撒谎，和姐姐一样！"
         hide yin with dissolve
         "影哭着跑了出去，攻略失败"
         jump firstFive
     label .choice2A:
-        show yin normal:
+        show yin ku:
             function happyShake
         yin "啊，不要，不要这样"
         hide yin with dissolve
@@ -338,11 +350,12 @@ label firstFour:
         show yin normal:
             function happyShake
         "她触电般抽回了手"
-        show yin normal:
+        show yin jidong:
             function wiggleFuncX
         yin "但请你，至少这一次，不要让大家不辞而别"
         hide yin with dissolve
         scene black with fade
+        show jingao at truecenter
         "然后当晚你就收到了春日结衣“不要对我妹动手脚”的警告短信"
         $ firstStoryScore += 1
         jump firstFive
@@ -361,19 +374,19 @@ label firstFive:
     hua "怎么，来这里搅乱我的安宁吗？"
     hua "我知道你的来意，但看见了”WHITE ALBUM” 的荒诞剧，我可没有兴趣"
     menu:
-        "怎么会再有人像那光华公子，随意换取薄幸名":
-            jump .choice1A
         "敲钟的承诺我将信守，不会再让洪波翻涌":
             jump .choice1B
+        "怎么会再有人像那光华公子，随意换取薄幸名":
+            jump .choice1A
     label .choice1A:
-        show hua normal:
+        show hua chaoxiao:
             function wiggleFuncX
         hua "呵呵，源氏的话，那还是不要相信的好"
         hide hua with dissolve
         "她拒绝了你的邀请，攻略失败，你找了其他贝斯手"
         jump firstSix
     label .choice1B:
-        show hua normal:
+        show hua weixiao:
             function wiggleFuncX
         hua "你愿坚守原则的话，龙姬也不会奈何良辰美景"
         hua "但假如我这样呢？"
@@ -382,7 +395,7 @@ label firstFive:
         show hua normal:
             function crazy
         hua "哈哈 ，wyyyyyyyyyyyyyyyyyyyyyyyyyyy!"
-        "就突然间，她摘下眼镜，散开头发，拿起贝斯就是一阵吊诡的华丽电音"
+        "就突然间，她散开头发，拿起贝斯就是一阵吊诡的华丽电音"
         menu:
             "疯批美人最爱了，我真是high到不行啊！":
                 show classroom:
@@ -397,9 +410,9 @@ label firstFive:
                     function notcrazy
                 jump .choice2B
     label .choice2A:
-        hua "啊，你在讲什么？有没有病啊？"
-        show hua normal:
+        show hua haixiu:
             function wiggleFuncX
+        hua "啊，你在讲什么？有没有病啊？"
         hua "不许再讲类似的话，否则我可要改主意了！"
         $ firstStoryScore += 1
         jump firstSix
@@ -430,6 +443,7 @@ label firstSix:
         "之后，你找了别的鼓手"
         jump firstSeven
     label .choice1B:
+        show mizi jinya
         mizi "这可是你第一次对姐姐开的价不满足啊"
         show mizi normal:
             function wiggleFuncX
@@ -446,19 +460,16 @@ label firstSix:
                 jump .choice3B
 
     label .choice3A:
-        show mizi normal:
+        show mizi jinya:
             function wiggleFuncX
         mizi "你说的是真的吗？不要骗我哦"
-        show mizi normal:
+        show mizi haixiu:
             function happyShake
         mizi "那姐姐我就燃烧心火，再陪你们塔塔开一回！"
         mizi "不过，你要对你说过的话负责哦！"
         scene black
-        show mizi normal
         with dissolve
-        show mizi normal:
-            function wiggleFuncX
-        mizi "呀咧呀咧，都要我负责什么啊？"
+        "呀咧呀咧，都要我负责什么啊？"
         $ firstStoryScore += 1
         jump firstSeven
     
@@ -782,3 +793,179 @@ label secondEnd5:
     "达成结局“满溢甜蜜的青春”，获得5个印章"
     jump onSecondStoryWillEnd
 
+label onThirdStoryWillEnd:
+    scene black with fade
+    "游戏结束，你获得[thirdStoryScore]分"
+    menu:
+        "{color=#000}重新开始{/color}":
+            jump start
+label thirdStory:
+    weizhiren "异世界勇者，睁开眼睛，我是沙芙林"
+    show akuyakaichang at truecenter with dissolve
+    ni "这里是……?"
+    shafulin "我是异世界女神，负责引导像你这样被大卡车创飞到异世界的勇者"
+    ni "啊？哦"
+    "(感觉她看起来更像社畜)"
+    hide akuyakaichang
+    show akuyachaofeng at top
+    shafulin "想不想体验在异世界开后宫啊？被各种各样的戳你xp的帅哥美女们包围着"
+    show akuyachaofeng at top:
+        function wiggleFuncX
+    shafulin "这当然是不可能的，想想就行了。这里是冒险类异世界，不是恋爱类的"
+    "(她刚刚是不是说了什么不得了的话?) "
+    hide akuyachaofeng
+    show akuyaxiao at top
+    shafulin "不用奇怪，我知道自己是纸片人。总之，开始冒险吧"
+    jump thirdStoryFirst
+label thirdStoryFirst:
+    scene black with fade
+    show zhaohuanzheng at truecenter
+    shafulin "我打算给你召唤一个可爱的伙伴"
+    hide zhaohuanzheng
+    show zhaohuanzheng2 at truecenter
+    "在光污染程度的特效闪过后，你看到有个拿剑的女性和一个有着双马尾(?)的粉白不明飞行物出现了"
+    hide zhaohuanzheng2
+    show zhaohuanzhengjianyin at truecenter
+    buzhimingnvshi "你就是我的Master吗"
+    shafulin "好了，让伙伴跟着你一起出发吧"
+    ni "(嗯……她说了只有一个伙伴来着)"
+    menu:
+        "选择帅气的英灵":
+            hide zhaohuanzhengjianyin
+            jump .choice1
+        "选择可爱(?)的不明生物":
+            hide zhaohuanzhengjianyin
+            jump .choice2
+            
+    label .choice1:
+        show saber at truecenter
+        weizhiren "喂!Saber，在这里"
+        "一个橘色刺猬头少年打断了你，向金发英灵招手"
+        show saber at truecenter:
+            function wiggleFuncX
+        "被称呼为Saber的女士意识到认错了人，向你们道了歉，离开了"
+        jump thirdStorySecond
+    label .choice2:
+        show xiaoyuan at truecenter
+        $ thirdStoryScore += 1
+        "要和我签订契约成为魔法少女吗？"
+        ni "(感到一阵恶寒)"
+        show falao at truecenter
+        shafulin "damiedayo～damieyo～damiedalou～吉祥物不要做多余的事情"
+        jump thirdStorySecond
+
+label thirdStorySecond:
+    scene black with fade
+    show sirenzu at truecenter with dissolve 
+    "一群人气势汹汹地向你跑来"
+    shafulin "啊，你被主角团找麻烦了。不推荐恋战哦，不过打败他们会有隐藏奖励"
+    show sirenzu big at truecenter  
+    ni "等等，为什么剧情之间一点联系都没有?"
+    shafulin "因为我们是单元剧"
+    ni "?"
+    menu:
+        "大喊砸瓦鲁多后逃跑吧":
+            jump .choice1
+        "Hoho 那就再靠近一点吧":
+            jump .choice2
+    label .choice1:
+        scene black with fade
+        $ thirdStoryScore += 1
+        "你大喊了一声砸瓦鲁多。他们愣住了"
+        "在这个时间里，沙芙林将你传送出去了，有惊无险，可喜可贺"
+        jump thirdStoryThird
+    label .choice2:
+        "哼aaaaaa"
+        show diozhanbai at truecenter with dissolve
+        "被揍了一顿，再起不能"
+        jump onThirdStoryWillEnd
+label thirdStoryThird:
+    scene black with fade
+    weizhiren "拯救世界的勇者呦……你怎么这么狼狈?跟人打架了？"
+    show maoniang at truecenter with dissolve
+    weizhiren "总之，我是公主，给你送东西的"
+    ni "呃……你是男的吧"
+    shafulin "不错啊，你竟然能看出来。他是我的同事，叫秀吉"
+    hide maoniang
+    show xiuji at truecenter:
+        function wiggleFuncX
+    xiuji "公主NPC出bug了嘛，只能我暂时代班喽。别介意，这个奖章免费送给你"
+    menu:
+        "是奖励关卡吗？":
+            jump .choice1
+        "是奖励关卡吧":
+            jump .choice1
+    label .choice1:
+        $ thirdStoryScore += 1
+        show shafulintan at truecenter with dissolve
+        shafulin "没错，是保底关哦，有人全选了错误选项就不好了"
+        jump thirdStoryFourth
+label thirdStoryFourth:
+    scene black with fade
+    show xiuxi at truecenter with dissolve
+    shafulin "魔王大殿的钥匙放在花盆下面了，你自己去拿吧，我休息一会儿"
+    hide xiuxi with dissolve
+    "刚靠近一看就不对劲的温室，一个一看就更不对劲的戴眼镜的小学生就冒了出来"
+    show kenan at truecenter with dissolve
+    kenan "啊咧咧，明明很久都没人照顾了，却还有两盆植物活着，这是怎么回事呢？"
+    ni "(好熟悉，感觉这个小学生在的地方都会发生什么不好的事情)"
+    shafulin "虽然是推理关，但你是从哪里冒出来的啊？根本不是这个世界的角色吧!"
+    ni "唔姆，不管了，选一个吧"
+    menu:
+        "捕蝇草":
+            hide kenan with dissolve
+            jump .choice1
+        "牵牛花":
+            hide kenan with dissolve
+            jump .choice2
+    label .choice1:
+        show yaoshi at truecenter with dissolve
+        $ thirdStoryScore += 1
+        "你拿到了大殿钥匙，准备离开时发现那个死神小学生已经不见了"
+        "相比于此，为什么大殿钥匙会放在这么简陋的地方，才是你最感到疑惑的"
+        jump thirdStoryFifth
+    label .choice2:
+        show chusheng at truecenter with dissolve
+        "在你碰到牵牛花的那一刻，牵牛花化成了藤蔓向你袭来"
+        "沙芙林先藤蔓一步，将你们两个传送走，成功避免了本子剧情"
+        shafulin "你是baka吗？牵牛花这种，没办法通过捕食获得额外营养的植物，怎么可能会在花盆里活很久啊？！是陷阱，陷阱! "
+        jump thirdStoryFifth
+
+label thirdStoryFifth:
+    scene black with fade
+    "你们进入了魔王大殿。如同在等待着什么一样，魔王自王座起身"
+    show xianbei normal at truecenter with dissolve
+    "来到你们面前。她有些扭捏，又或是害羞。你没有立刻攻击她"
+    show xianbei hongcha at truecenter with dissolve
+    mowang "你，你们好!那个……虽然有些不好意思……我从勇者来到这个世界的第一刻就在关注了"
+    show xianbei xiao at truecenter with dissolve
+    mowang "后知后觉地意识到，我，我可能是一见钟情了，能给我个机会吗？"
+    ni "?"
+    menu:
+        "不可以，这是冒险世界":
+            jump .choice1
+        "为什么不呢?让我们互相了解对方吧":
+            jump .choice2
+    label .choice1:
+        show xianbei hao at truecenter with dissolve
+        $ thirdStoryScore += 1
+        "你们直接开打了。令人意外的是，你的攻击打到魔王身上的那一刻，她就迫不及待地躺到了地上"
+        "女神阻止了打算补刀的你。魔王随后起身，摆了摆手，下班了"
+        jump thirdStoryJieWei
+    label .choice2:
+        show xianbei guangming at truecenter with dissolve
+        mowang "好啊，很好啊!"
+        "哼哼哼"
+        "啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
+        "你被魔王雷普力，沙芙林将你拖回了现实"
+        jump thirdStoryJieWei
+label thirdStoryJieWei:
+    scene black with fade
+    shafulin "结束了"
+    shafulin "你要进行下一个游戏了吧？那么，再见。希望你还能继续喜欢着二次元的世界"
+    jump onThirdStoryWillEnd
+
+
+
+
+        
