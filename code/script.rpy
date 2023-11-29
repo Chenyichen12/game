@@ -88,9 +88,14 @@ label willEnd:
         "{color=#000}重新开始{/color}":
             jump start
 label start:
-    $ firstStoryScore = 0
-    $ thirdStoryScore = 0
-    jump thirdStory
+    menu:
+        "{color=#000}black 剧本{/color}":
+            $ thirdStoryScore = 0
+            jump thirdStory
+        "{color=#000}琥珀 剧本{/color}":
+            $ firstStoryScore = 0
+            jump firstStory
+    
     return
 
 label firstStory:
@@ -104,7 +109,7 @@ label firstStory:
         """
         千坂田妮可
         主修声乐，之前未接触过乐队
-        天真活泼双钻头，是静的侄女。
+        天真活泼双钻头，是校长的侄女。
         """
         hide nike 
         show jieyi normal 
@@ -248,7 +253,7 @@ label firstThree:
     jieyi "怎么，你也想像那个自以为是的人一样，上演“你怎么那么熟练啊”的戏码,然后又伤害其他人的梦想吗？"
     show jieyi normal:
         function wiggleFuncY
-    jieyi """{size=+10}{color=#f00}他们的罪恶，我甚至不屑于细数{/color}{/size}
+    jieyi xishuzuie """{size=+10}{color=#f00}他们的罪恶，我甚至不屑于细数{/color}{/size}
     \n此处谨慎选择
     """
     menu:
@@ -279,7 +284,7 @@ label firstThree:
         show jieyi normal:
             function wiggleFuncX
         jieyi """
-        确实有我威慑力
+        的确对我有威慑力
         """
         show jieyi lengxiao
         jieyi"""
@@ -490,17 +495,23 @@ label firstSeven: # 结局
         经过几个月的训练，你们在接下来的音乐节演出中饱受好评，并一炮走红
 
         不过在几张专辑与年余的活跃后，你们还是出于工作和学业的原因解散了乐队
-
-        妮可时常会拉你上号启动。
-
+        """
+        scene waijin with fade
+        "妮可时常会拉你上号启动。"
+        scene classroom with fade
+        "
         而泉镜花却出人意料去研究古典乐了。
-
+        "
+        scene bianlidian with fade
+        """
         影和结衣的学费被学校免除了，两个人对你与学校都很感激。
 
         但你还是会时常收到结衣的警告短信“可别欺负我妹”
 
         她不知道的是，每次影来找你，都会被班上女孩子疼爱地包围，你都凑不过去。
-
+        """
+        scene cafe with fade
+        """
         不过有一点没有改变，
 
         就是每个周六，你总会在下午陪弥子喝咖啡，听她吐槽工作上的事。
@@ -519,13 +530,19 @@ label firstSeven: # 结局
         不过在几张专辑与年余的活跃后，你们还是出于工作和学业的原因解散了乐队
 
         世事变换，但有一点未曾改变
+        """
+        
+        scene cafe with fade
+        """
+        不过有一点没有改变，
 
         就是每个周六，你总会在下午陪弥子喝咖啡，听她吐槽工作上的事。
 
         这是自你离开家乡来到这座城市后，
 
         弥子每周都一定要做的事，谁叫她照顾你习惯了呢？
-        
+
+        终
         """
         jump willEnd
 
@@ -856,29 +873,29 @@ label thirdStoryFirst:
 
 label thirdStorySecond:
     scene black with fade
-    show sirenzu at truecenter with dissolve 
+    show sirenzukaichang at truecenter with dissolve 
     "一群人气势汹汹地向你跑来"
     shafulin "啊，你被主角团找麻烦了。不推荐恋战哦，不过打败他们会有隐藏奖励"
-    show sirenzu big at truecenter  
+    hide sirenzukaichang
+    show sirenzunanzhu at truecenter  
     ni "等等，为什么剧情之间一点联系都没有?"
     shafulin "因为我们是单元剧"
     ni "?"
     menu:
-        "大喊砸瓦鲁多后逃跑吧":
+        "想办法牵制住他们然后逃跑吧":
+            hide sirenzunanzhu
             jump .choice1
-        "Hoho 那就再靠近一点吧":
+        "笑死，他们现在都是菜鸡，根本不怕":
+            hide sirenzunanzhu
             jump .choice2
     label .choice1:
-        scene black with fade
         $ thirdStoryScore += 1
-        "你大喊了一声砸瓦鲁多。他们愣住了"
-        "在这个时间里，沙芙林将你传送出去了，有惊无险，可喜可贺"
+        "你们花了点力气离开了。沙芙林告诉你，虽然他们很弱，但会有『机械降神』帮助他们"
         jump thirdStoryThird
     label .choice2:
-        "哼aaaaaa"
-        show diozhanbai at truecenter with dissolve
-        "被揍了一顿，再起不能"
-        jump onThirdStoryWillEnd
+        show rexuesirenzu at top with dissolve
+        "你很轻松地打败了他们。但他们突然大喊着什么友谊啊，羁绊啊之类的话，满血复活，战力飙升，把你揍了一顿"
+        jump thirdStoryThird
 label thirdStoryThird:
     scene black with fade
     weizhiren "拯救世界的勇者呦……你怎么这么狼狈?跟人打架了？"
@@ -934,11 +951,9 @@ label thirdStoryFourth:
 label thirdStoryFifth:
     scene black with fade
     "你们进入了魔王大殿。如同在等待着什么一样，魔王自王座起身"
-    show xianbei normal at truecenter with dissolve
+    show wumu at truecenter with dissolve
     "来到你们面前。她有些扭捏，又或是害羞。你没有立刻攻击她"
-    show xianbei hongcha at truecenter with dissolve
     mowang "你，你们好!那个……虽然有些不好意思……我从勇者来到这个世界的第一刻就在关注了"
-    show xianbei xiao at truecenter with dissolve
     mowang "后知后觉地意识到，我，我可能是一见钟情了，能给我个机会吗？"
     ni "?"
     menu:
@@ -947,17 +962,15 @@ label thirdStoryFifth:
         "为什么不呢?让我们互相了解对方吧":
             jump .choice2
     label .choice1:
-        show xianbei hao at truecenter with dissolve
+        show wumu yichang at truecenter with dissolve
         $ thirdStoryScore += 1
         "你们直接开打了。令人意外的是，你的攻击打到魔王身上的那一刻，她就迫不及待地躺到了地上"
         "女神阻止了打算补刀的你。魔王随后起身，摆了摆手，下班了"
         jump thirdStoryJieWei
     label .choice2:
-        show xianbei guangming at truecenter with dissolve
-        mowang "好啊，很好啊!"
-        "哼哼哼"
-        "啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
-        "你被魔王雷普力，沙芙林将你拖回了现实"
+        show wumu jingya at truecenter with dissolve
+        mowang "真的假的？你是好奇选这个选项会发生什么吗？还是说…… "
+        "她以为你是诚哥类的人，扇了你一巴掌，然后火速飞走了"
         jump thirdStoryJieWei
 label thirdStoryJieWei:
     scene black with fade
