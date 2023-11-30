@@ -79,6 +79,7 @@ init python:
         trans.rotation = 0.0
         return 0
     
+    
 
 
 define firstStoryScore = 0
@@ -90,6 +91,29 @@ label willEnd:
         "{color=#000}重新开始{/color}":
             jump start
 label start:
+    # TODO：发布版本代码
+    # $ isEasterEgg = False
+    # $ selectedStory = 0
+    # python:
+    #     import random
+    #     random_number = random.random()
+    #     probability_of_event = 0.1
+    #     if random_number < probability_of_event:
+    #         isEasterEgg = True
+    #     else:
+    #         selectedStory = random.randint(1,3)
+    # if(isEasterEgg):
+    #     jump easterEgg
+    # elif(selectedStory == 1):
+    #     $ firstStoryScore = 0
+    #     jump firstStory
+    # elif(selectedStory == 2):
+    #     jump secondStory
+    # else:
+    #     $ thirdStoryScore = 0
+    #     jump thirdStory
+
+
     menu:
         "{color=#000}black 剧本{/color}":
             $ thirdStoryScore = 0
@@ -97,13 +121,14 @@ label start:
         "{color=#000}琥珀 剧本{/color}":
             $ firstStoryScore = 0
             jump firstStory
+        "{color=#000}花言斋 剧本{/color}":
+            jump secondStory
         "{color=#000}彩蛋{/color}":
             jump easterEgg
-            return
-    
     return
 
 label firstStory:
+    scene black with fade
     menu:
         "{color=#000}观看角色介绍{/color}":
             jump .introduce
@@ -533,8 +558,6 @@ label firstSeven: # 结局
         经过几个月的训练，你们在接下来的音乐节演出中饱受好评，并一炮走红
 
         不过在几张专辑与年余的活跃后，你们还是出于工作和学业的原因解散了乐队
-
-        世事变换，但有一点未曾改变
         """
         
         scene cafe with fade
@@ -556,6 +579,7 @@ label onSecondStoryWillEnd:
         "{color=#000}重新开始{/color}":
             jump start
 label secondStory:
+    scene black with fade
     """
     秋风渐起，一年一度的全国剑道大赛又将开始了。
 
@@ -822,6 +846,7 @@ label onThirdStoryWillEnd:
         "{color=#000}重新开始{/color}":
             jump start
 label thirdStory:
+    scene black with fade
     weizhiren "异世界勇者，睁开眼睛，我是沙芙林"
     show akuyakaichang at truecenter with dissolve
     ni "这里是……?"
@@ -983,12 +1008,16 @@ label thirdStoryJieWei:
     shafulin "你要进行下一个游戏了吧？那么，再见。希望你还能继续喜欢着二次元的世界"
     jump onThirdStoryWillEnd
 label willEasterEggEnd:
+    scene black with fade
     menu:
         "{color=#000}重新开始{/color}":
             jump start
 label easterEgg:
     $ thisAuthor = authorNames[-1]
     define author = Character("[thisAuthor]", color="#371da0")
+    scene black
+    show vscode at truecenter
+    with dissolve 
     weizhiren """
     debugger;
 
@@ -1049,13 +1078,15 @@ label easterEgg:
                     "第三个游戏":
                         $ thirdStoryScore = 0
                         jump thirdStory
-            "感觉不如( )( )":
-                author "我知道你想说什么，我这就启动"
-                "游戏结束 你获得了1个印章"
-                jump willEasterEggEnd
             "...Renpy?":
                 author "哦？你很懂嘛，让我康康"
                 jump .choice2
+            "感觉不如( )( )":
+                author "我知道你想说什么，我这就启动"
+                scene yuanshen with fade
+                "游戏结束 你获得了1个印章"
+                jump willEasterEggEnd
+            
 
     label .choice2:
         menu:
@@ -1081,21 +1112,19 @@ label easterEgg:
                 author "哎呀我也懒得设置变量了，把你旁边的工作人员喊过来，告诉他等会给你加盖两个章"
                 menu:
                     "第一个游戏":
-                        $ thirdStoryScore = 2
+                        $ thirdStoryScore = 0
                         jump firstStory
                     "第二个游戏":
                         jump secondStory
                     "第三个游戏":
-                        $ thirdStoryScore = 2
+                        $ thirdStoryScore = 0
                         jump thirdStory
             "easterEggScore = 5":
                 jump .choice4
     label .choice4:         
-        author """
-        你真的觉得这个可以修改分数嘛，太天....
-        
-        WOC怎么改成功了
-        """
+        author "你真的觉得这个可以修改分数嘛，太天...."
+        scene black
+        author "WOC怎么改成功了"
     menu:
         "characterVoice = false":
             author """
