@@ -15,6 +15,7 @@ define shafulin = Character("沙芙林" , color="#401dc0")
 define xiuji = Character("秀吉", color="#d97121")
 define kenan = Character("打了无效马赛克的小学生", color="#171134")
 define mowang = Character("魔王", color="#000000")
+define authorNames = ["陈依澄"]
 # 动作
 init python:
     import random
@@ -77,6 +78,7 @@ init python:
         trans.zoom = 1.0
         trans.rotation = 0.0
         return 0
+    
 
 
 define firstStoryScore = 0
@@ -95,6 +97,9 @@ label start:
         "{color=#000}琥珀 剧本{/color}":
             $ firstStoryScore = 0
             jump firstStory
+        "{color=#000}彩蛋{/color}":
+            jump easterEgg
+            return
     
     return
 
@@ -977,6 +982,188 @@ label thirdStoryJieWei:
     shafulin "结束了"
     shafulin "你要进行下一个游戏了吧？那么，再见。希望你还能继续喜欢着二次元的世界"
     jump onThirdStoryWillEnd
+label willEasterEggEnd:
+    menu:
+        "{color=#000}重新开始{/color}":
+            jump start
+label easterEgg:
+    $ thisAuthor = authorNames[-1]
+    define author = Character("[thisAuthor]", color="#371da0")
+    weizhiren """
+    debugger;
+
+    呃呃呃呃 这是一个什么神奇bug
+
+    嗯？
+
+    你是怎么进到debug模式来的，开了吗
+    """
+    menu:
+        "这就默认我开了嘛":
+            weizhiren """
+            嘛估计就是程序出了一点BUG嘛，不要介意
+
+            作为补偿，你想要去哪个游戏，我直接帮你跳转，就不用随机数了
+            """
+            menu:
+                "第一个游戏":
+                    $ thirdStoryScore = 0
+                    jump firstStory
+                "第二个游戏":
+                    jump secondStory
+                "第三个游戏":
+                    $ thirdStoryScore = 0
+                    jump thirdStory
+        "事随机数后数组越界了罢":
+            jump .choice1
+
+    label .choice1:
+        weizhiren """
+        哦？我看看，好像是这样的
+
+        我们这个游戏只有三个剧本，看来是game3把你传到这里来了，
+        
+        不过这个程序没崩溃也是奇怪，我当你是有缘人陪你聊聊罢
+        """
+
+        author """
+        自我介绍一下，我叫[thisAuthor]，事这个游戏的程序员
+
+        前面三个剧本分别是我们创作部文组的 ByBlack 琥珀 花言斋写的
+
+        大部份图都是我们的图组大佬寰宇做的
+
+        由于各种DDL我几乎就只挤出了一点时间学这个引擎，你能看出我用的是啥引擎做的吗
+        """
+        menu:
+            "那当然是KRKR罢":
+                author "啊 KRKR确实挺出名的，不过我用的是Renpy，要问为什么嘛"
+                author "没啥为什么，单纯就觉得Renpy挺亲切的"
+                author "ok闲聊时间到此为止我作为补偿，你想要去哪个游戏，我直接帮你跳转，就不用随机数了"
+                menu:
+                    "第一个游戏":
+                        $ thirdStoryScore = 0
+                        jump firstStory
+                    "第二个游戏":
+                        jump secondStory
+                    "第三个游戏":
+                        $ thirdStoryScore = 0
+                        jump thirdStory
+            "感觉不如( )( )":
+                author "我知道你想说什么，我这就启动"
+                "游戏结束 你获得了1个印章"
+                jump willEasterEggEnd
+            "...Renpy?":
+                author "哦？你很懂嘛，让我康康"
+                jump .choice2
+
+    label .choice2:
+        menu:
+            "废话，我超懂的啦，我超会开发的啦":
+                author "来来来 给你看个好康的"
+                "你沉浸在开发的世界中无法自拔"
+                "游戏结束 你获得了2个印章"
+                jump willEasterEggEnd
+            "我在想你在开发这个彩蛋剧本的时候是啥感觉":
+                jump .choice3
+    label .choice3:
+        author "当然很奇怪啊，毕竟就像是对着空气输出嘛"
+        author "你越来越有趣了，不过确实，数组越界程序不崩溃才是怪事，这个确实是一个彩蛋剧本"
+        author "恭喜你触发了彩蛋，不过想要拿满印章还不够哦"
+        author "你现在有两个选择"
+        menu:
+            "拿走4个印章离开":
+                author "见好就收是不错的选择"
+                "游戏结束 你获得了4个印章"
+                jump willEasterEggEnd
+            "选择任意的剧本并获得保底的2个印章":
+                author "好啊，你选了一个我最难实现的逻辑"
+                author "哎呀我也懒得设置变量了，把你旁边的工作人员喊过来，告诉他等会给你加盖两个章"
+                menu:
+                    "第一个游戏":
+                        $ thirdStoryScore = 2
+                        jump firstStory
+                    "第二个游戏":
+                        jump secondStory
+                    "第三个游戏":
+                        $ thirdStoryScore = 2
+                        jump thirdStory
+            "easterEggScore = 5":
+                jump .choice4
+    label .choice4:         
+        author """
+        你真的觉得这个可以修改分数嘛，太天....
+        
+        WOC怎么改成功了
+        """
+    menu:
+        "characterVoice = false":
+            author """
+            太天真力，我又不是角色
+
+            游戏结束，看你到了这里我就给你两个印章罢，再见力
+            """
+            "游戏结束 你获得了2个印章"
+            jump willEasterEggEnd
+        "authorVoice = false":
+            author "唔唔唔,竟然把开发者禁言了，但是开发者的权限是无限大的，想要把我搞下去还是很难的"
+            $ minling = ""
+            screen entry_name():
+                tag menu
+                fixed:
+                    input:
+                        value VariableInputValue("minling")
+                        size 35
+                        length 20
+                        allow None
+                        color "#2F4F4F"
+                        xpos 499
+                        ypos 313
+                        pixel_width 500
+                        exclude " "                            
+                button:   
+                    action Return()
+            call screen entry_name
+            if(minling == "debugger;"):
+                jump .choice5
+            else:
+                author "诶都给你机会自由输入代码了，也没见你能黑进去a，算了，我也懒得写你的流程分支了"
+                author "这个剧本的逻辑已经一团糟了，给你三个印章结束罢"
+                author "得到三个印章，游戏结束"
+                jump willEasterEggEnd
+
+    label .choice5:
+        "系统已中断 请修改开发者姓名"
+        $ nextName = ""
+        screen changeName():
+            tag menu
+            fixed:
+                input:
+                    value VariableInputValue("nextName")
+                    size 35
+                    length 20
+                    allow None
+                    color "#2F4F4F"
+                    xpos 499
+                    ypos 313
+                    pixel_width 500
+                    exclude " "                            
+            button:   
+                action Return()
+        call screen changeName
+        "开发者姓名已修改成功，修改历史记录为..."
+        python:
+            authorNames.append(nextName)
+            total = ""
+            for value in authorNames:
+                if value == nextName:
+                    total += value
+                else:
+                    total += value + "->"
+            say("",total)
+        
+        "游戏结束 你获得了5个印章"
+        jump willEasterEggEnd
 
 
 
