@@ -1191,22 +1191,27 @@ label easterEgg:
         "authorVoice = false":
             author "唔唔唔,竟然把开发者禁言了，但是开发者的权限是无限大的，想要把我搞下去还是很难的"
             $ minling = ""
-            screen entry_name():
-                tag menu
-                fixed:
-                    input:
-                        value VariableInputValue("minling")
-                        size 35
-                        length 20
-                        allow None
-                        color "#2F4F4F"
-                        xpos 499
-                        ypos 313
-                        pixel_width 500
-                        exclude " "                            
-                button:   
-                    action Return()
-            call screen entry_name
+            while minling == "":
+                screen entry_name():
+                    tag menu
+                    fixed:
+                        text ">Terminal":
+                            color "#2F4F4F"
+                            xpos 307
+                            ypos 313
+                        input :
+                            value VariableInputValue("minling")
+                            size 35
+                            length 20
+                            allow None
+                            color "#2F4F4F"
+                            xpos 499
+                            ypos 313
+                            pixel_width 500
+                            exclude " "                            
+                    button:   
+                        action Return()
+                call screen entry_name
             if(minling == "debugger;"):
                 jump .choice5
             else:
@@ -1218,22 +1223,23 @@ label easterEgg:
     label .choice5:
         "系统已中断 请修改开发者姓名"
         $ nextName = ""
-        screen changeName():
-            tag menu
-            fixed:
-                input:
-                    value VariableInputValue("nextName")
-                    size 35
-                    length 20
-                    allow None
-                    color "#2F4F4F"
-                    xpos 499
-                    ypos 313
-                    pixel_width 500
-                    exclude " "                            
-            button:   
-                action Return()
-        call screen changeName
+        while nextName == "":
+            screen changeName():
+                tag menu
+                fixed:
+                    input:
+                        value VariableInputValue("nextName")
+                        size 35
+                        length 20
+                        allow None
+                        color "#2F4F4F"
+                        xpos 499
+                        ypos 313
+                        pixel_width 500
+                        exclude " "                            
+                button:   
+                    action Return()
+            call screen changeName
         "开发者姓名已修改成功，修改历史记录为..."
         python:
             authorNames.append(nextName)
