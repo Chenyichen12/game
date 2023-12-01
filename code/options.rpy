@@ -194,3 +194,18 @@ init python:
 
 # TODO: 需要在构建发布版本时候禁止回滚
 define config.rollback_enabled = True
+
+# python:
+#     def blockAllMouseInput(event,interact = True,**kwargs):
+#         if not interact:
+#             return
+#         if event == "begin":
+#             pygame.event.set_blocked(pygame.MOUSEBUTTONDOWN)
+#             pygame.event.set_blocked(pygame.MOUSEBUTTONUP)
+#         elif event == "slow_down":
+#             pygame.event.set_allowed(pygame.MOUSEBUTTONDOWN)
+#             pygame.event.set_allowed(pygame.MOUSEBUTTONUP)
+        
+#         renpy.config.all_character_callbacks = blockAllMouseInput
+
+define config.allow_skipping = False

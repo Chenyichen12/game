@@ -18,6 +18,7 @@ define mowang = Character("魔王", color="#000000")
 define authorNames = ["陈依澄"]
 # 动作
 init python:
+    import pygame
     import random
     def wiggleFuncX(trans, st, at):
         if st > 0.4:
@@ -78,10 +79,17 @@ init python:
         trans.zoom = 1.0
         trans.rotation = 0.0
         return 0
-    
-    
+    # def blockAllMouseInput(event,interact,**kwargs):
+    #     print(event)
+    #     if event == "begin":
+    #         pygame.event.set_blocked(pygame.MOUSEBUTTONUP)
+    #     elif event == "slow_done":
+    #         pygame.event.set_allowed(pygame.MOUSEBUTTONUP)
+    # config.all_character_callbacks += [blockAllMouseInput]
 
 
+
+# define renpy.config.all_character_callbacks = blockAllMouseInput
 define firstStoryScore = 0
 define thirdStoryScore = 0
 label willEnd:
@@ -595,6 +603,8 @@ label secondStory:
     """
     jump secondStart
 label secondStart:
+    scene daochang at truecenter with fade
+    show xuejie normal with dissolve
     "剑道训练馆内，你和泽野学姐手握竹剑对峙着"
     "经过一轮节奏明快的攻防，你再一次败下阵来。相互鞠躬后——"
     menu:
@@ -604,11 +614,13 @@ label secondStart:
             jump secondAlpha2
 
 label secondAlpha1:
+    show xuejie normal:
+        function wiggleFuncY
     zeyeju "好的，那么拜托了"
-
     "又一轮激烈的对攻。泽野学姐最终还是打败了你"
+    show xuejie biyan
     "但你也让她冒了一次冷汗，相互鞠躬后，学姐脱下头盔"
-
+    show xuejie normal
     zeyeju "有点累了吧，要不要休息一下"
     menu:
         "再来一次，爷们要战斗！":
@@ -616,15 +628,21 @@ label secondAlpha1:
         "既然学姐这么说了，训练就暂停一下吧":
             jump secondBeta2
 label secondAlpha2:
+    show xuejie normal:
+        function wiggleFuncY
     zeyeju "那么，今天就到此为止吧"
     """
     学姐放下装备，收拾好东西后便与你告别了
-
+    """
+    hide xuejie with dissolve
+    scene black with fade
+    """
     走在回家的路上时，你想起青梅竹马的邻家少女笹川春说过会来你家帮忙准备晚餐
 
     果然，推开屋门的一刹那，饭菜的香味扑面而来
     """
-
+    scene fanzhuo with fade
+    show qinmei with dissolve
     tichuanchun "你可算回来了！今天我做的饭菜怎么样？"
     menu:
         "看起来不错":
@@ -632,6 +650,8 @@ label secondAlpha2:
         "应该挺好吃的":
             jump .choice1
     label .choice1:
+        show qinmei:
+            function wiggleFuncY
         tichuanchun """
         感觉你有些疲惫，是因为剑道训练吗？
         
@@ -644,6 +664,8 @@ label secondAlpha2:
                 jump secondGamma12
 
 label secondBeta1:
+    show xuejie normal:
+        function wiggleFuncX
     zeyeju "没想到你这么有干劲......好吧"
     "这一次，你的身体和反应速度渐渐跟上了学姐"
     "就在你以为要取得胜利之时，她的竹剑却先一步击中了你"
@@ -661,6 +683,8 @@ label secondBeta2:
     
     她似乎若有所思地望着远处，你凑近一看，发现她正注视着院子里的一丛雏菊。
     """
+    show xuejie normal:
+        function wiggleFuncY
     zeyeju "对了，应该要好好犒劳一下如此努力的后辈呢"
     menu:
         "谢谢学姐！不过奶茶我只喝星芋啵啵的哦":
@@ -669,7 +693,10 @@ label secondBeta2:
             jump secondAlpha2
 
 label secondGamma11:
+    show qinmei:
+        function wiggleFuncX
     tichuanchun "......我明白了"
+    scene black with fade
     """
     之后的日子里，你照例担任陪练，直到全国大赛开始。最终泽野学姐拿下了冠军。
 
@@ -681,87 +708,103 @@ label secondGamma11:
     """
     jump secondEnd2
 label secondGamma12:
+    show qinmei:
+        function wiggleFuncX
     tichuanchun "突、突然间说什么呢！快点吃饭啦......不过，你这样说我真的很开心~"
+    scene black with fade
     """
     之后的日子里，你照例担任陪练，而春酱则仍会时不时“借用”你家的厨房
-
+    """
+    scene saichang with fade
+    """
     全国大赛开始之际，春主动提出要陪同你前去观赛，于是你们肩并肩坐在观众席上看完了泽野学姐的所有比赛
 
     最终，学姐拿下了冠军。
 
     赛后，你向学姐祝贺，她却看着你身边的春
     """
+    show xuejie normal at left
+    show qinmei at right
+    with dissolve
     zeyeju "你们俩关系真好呢，不会是情侣吧？"
+    hide xuejie
+    show qinmei at center
+    with dissolve
     """
     春害羞地躲到你身后，你只能无奈地笑笑。
 
     和学姐道别后，春拉了拉你的衣角。你扭过头，发现她正努力藏住嘴角的微笑
     """
+    show qinmei at center:
+        function wiggleFuncX
     tichuanchun "那个......今晚，我再做些好吃的给你吧"
     jump secondEnd3
 
 label secondTheta1:
+    show qinmei:
+        function wiggleFuncX
     tichuanchun "是嘛，你们都喜欢这样自说自话啊。别人不理解就显得自己追求的所谓理想更酷了吗？"
     tichuanchun "但我就是不明白啊！"
     "结果晚饭时间就在一片沉默之中度过了"
+    call secondDabisai
+    jump secondEnd4
 
+label secondDabisai:
+    scene saichang with fade
     """
     全国大赛如期而至，你前去观看了泽野学姐的比赛。她一路打败强敌，如愿斩获冠军。
 
     赛后，你站在场馆外，远远地看见她张开双臂向你小跑过来。你伸出手顺势抱住了她。
     """
+    show xuejie normal with dissolve
     zeyeju "唉唉，我可是好不容易才从媒体和观众之中脱身出来啊。大家可真是盛情难却"
     "学姐握住了你的手"
-    zeyeju """
-    还记得我之前在训练场和你的约定吗？其实嘛......
-    
-    我是想说，呃，
-    
-    其实我一直......
-    
-    对你......
-    """
+    show xuejie lianhong:
+        function wiggleFuncX
+    zeyeju "还记得我之前在训练场和你的约定吗？其实嘛......"
+    show xuejie lianhong:
+        function wiggleFuncX
+    zeyeju "我是想说，呃"
+    show xuejie biyan:
+        function happyShake
+    zeyeju "其实我一直......"
+    show xuejie lianhong:
+        function happyShake
+    zeyeju "对你......"
     "你不言语，只是温柔地注视着她"
+    show xuejie biyan:
+        function happyShake
     zeyeju "意思都这么明显了还要等我说完吗？"
+    show xuejie normal:
+        function wiggleFuncX
     "她忍不住笑出声来"
+    show xuejie lianhong:
+        function wiggleFuncY
     zeyeju ".....你这个坏蛋！"
-    jump secondEnd4
+    return
 label secondTheta2:
     tichuanchun "知道就好啦，饿了吧？来来，快吃饭"
     "少女连忙拉着你入座了"
-    """
-    全国大赛如期而至，你前去观看了泽野学姐的比赛。她一路打败强敌，如愿斩获冠军。
-
-    赛后，你站在场馆外，远远地看见她张开双臂向你小跑过来。你伸出手顺势抱住了她。
-    """
-    zeyeju "唉唉，我可是好不容易才从媒体和观众之中脱身出来啊。大家可真是盛情难却"
-    "学姐握住了你的手"
-    zeyeju """
-    还记得我之前在训练场和你的约定吗？其实嘛......
-    
-    我是想说，呃，
-    
-    其实我一直......
-    
-    对你......
-    """
-    "你不言语，只是温柔地注视着她"
-    zeyeju "意思都这么明显了还要等我说完吗？"
-    "她忍不住笑出声来"
-    zeyeju ".....你这个坏蛋！"
+    call secondDabisai
     jump secondEnd5
 
 label secondThgema:
     zeyeju "很遗憾，现在喝奶茶的话训练就前功尽弃了呢"
     "学姐笑出声来，右手轻叩身边的空位"
+    show xuejie normal:
+        function happyShake
     zeyeju "所以我准备了别的惊喜。来来，坐在我旁边吧"
     "你照做了。在你坐下的那一刻，她顺势扶住你的肩膀，在你反应过来之前轻巧地将你的头枕在了她的腿上。"
+    show xuejie lianhong:
+        function wiggleFuncY
     zeyeju "怎么样，偶尔这样这不错吧？不过我今天腿有点累了，没法给你躺真正的膝枕真是不好意思呢......"
     "学姐的声音越来越小了。你抬起头，发现她似乎在努力维持一副漫不经心的表情。为了打破无言的尴尬，还是说点什么好了"
     menu:
         "学姐，你在看什么？":
             jump .choice1
     label .choice1:
+        show xuejie lianhong:
+            function wiggleFuncX
         zeyeju "......哦哦！我在看......那丛菊花"
         zeyeju "你看，她在风中摇曳，说不定是在担心明天会不会更冷呢"
         menu:
@@ -771,13 +814,20 @@ label secondThgema:
     label .choice2:
         zeyeju "也是呢"
         "学姐低下头，目光深沉地看着你"
+        show xuejie biyan:
+            function wiggleFuncX
         zeyeju "其实我还有些话想告诉你，但果然还是等到全国大赛后再说吧！"
+        show xuejie normal
         zeyeju "我们来做个约定，届时还请务必亲眼见证......我的决意哦"
+        hide xuejie with dissolve
+        scene black with fade
         """
         和学姐道别后，你想起青梅竹马的邻家少女笹川春说过会来你家帮忙准备晚餐
         
         于是加快了脚步。果然，推开屋门的一刹那，饭菜的香味扑面而来。
         """
+        scene fanzhuo with fade
+        show qinmei with dissolve
         tichuanchun "呀，你怎么这么晚才回来？发生什么事了吗？"
         menu:
             "学姐今日似乎非常有兴致":
@@ -795,7 +845,10 @@ label secondOmega:
     为了求胜，这次你打算试试不一样的战术。
     
     你以街头搏斗般拼命的姿势狂舞挥打。
-    
+    """
+    show xuejie normal:
+        function happyShake
+    """
     学姐显然有点吓到了，你精准地抓住了那措手不及的一瞬将她击败。
 
     你能感觉到，这些日子的训练让你产生了质变：
@@ -803,7 +856,8 @@ label secondOmega:
     "泽野学姐，普通的剑道是有极限的......所以，我不做普通剑道部员啦！！！"
 
     zeyeju "你在说什么？总之今天先解散吧。"
-
+    hide xuejie with dissolve
+    scene feiqi with fade
     """
     和她分别后，你并没有回家，而是拐进了一条通往废弃厂房的小道。
 
