@@ -92,6 +92,7 @@ init python:
 # define renpy.config.all_character_callbacks = blockAllMouseInput
 define firstStoryScore = 0
 define thirdStoryScore = 0
+define selectLastStory = 0
 label willEnd:
     scene black with fade
     "游戏结束，你获得[firstStoryScore]分"
@@ -100,39 +101,41 @@ label willEnd:
             jump start
 label start:
     # TODO：发布版本代码
-    # $ isEasterEgg = False
-    # $ selectedStory = 0
-    # python:
-    #     import random
-    #     random_number = random.random()
-    #     probability_of_event = 0.1
-    #     if random_number < probability_of_event:
-    #         isEasterEgg = True
-    #     else:
-    #         selectedStory = random.randint(1,3)
-    # if(isEasterEgg):
-    #     jump easterEgg
-    # elif(selectedStory == 1):
-    #     $ firstStoryScore = 0
-    #     jump firstStory
-    # elif(selectedStory == 2):
-    #     jump secondStory
-    # else:
-    #     $ thirdStoryScore = 0
-    #     jump thirdStory
+    $ isEasterEgg = False
+    $ selectedStory = 0
+    python:
+        import random
+        random_number = random.random()
+        probability_of_event = 0.1
+        if random_number < probability_of_event:
+            isEasterEgg = True
+        else:
+            while(selectedStory == 0 or selectedStory ==selectLastStory):
+                selectedStory = random.randint(1,3)
+            selectLastStory = selectedStory
+    if(isEasterEgg):
+        jump easterEgg
+    elif(selectedStory == 1):
+        $ firstStoryScore = 0
+        jump firstStory
+    elif(selectedStory == 2):
+        jump secondStory
+    else:
+        $ thirdStoryScore = 0
+        jump thirdStory
 
 
-    menu:
-        "{color=#000}black 剧本{/color}":
-            $ thirdStoryScore = 0
-            jump thirdStory
-        "{color=#000}琥珀 剧本{/color}":
-            $ firstStoryScore = 0
-            jump firstStory
-        "{color=#000}花言斋 剧本{/color}":
-            jump secondStory
-        "{color=#000}彩蛋{/color}":
-            jump easterEgg
+    # menu:
+    #     "{color=#000}black 剧本{/color}":
+    #         $ thirdStoryScore = 0
+    #         jump thirdStory
+    #     "{color=#000}琥珀 剧本{/color}":
+    #         $ firstStoryScore = 0
+    #         jump firstStory
+    #     "{color=#000}花言斋 剧本{/color}":
+    #         jump secondStory
+    #     "{color=#000}彩蛋{/color}":
+    #         jump easterEgg
     return
 
 label firstStory:

@@ -193,7 +193,7 @@ init python:
 # define build.itch_project = "renpytom/test-project"
 
 # TODO: 需要在构建发布版本时候禁止回滚
-define config.rollback_enabled = True
+define config.rollback_enabled = False
 
 # python:
 #     def blockAllMouseInput(event,interact = True,**kwargs):
